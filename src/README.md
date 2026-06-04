@@ -15,4 +15,4 @@ Une application de bureau légère écrite en Python et PyQt6 permettant de visi
    ```bash
    python -m venv venv
    source venv/bin/activate  # Sur Linux/macOS
-   .\venv\Scripts\activate   # Sur Windows
+   .\venv\Scripts\activate   # Sur Windows 
