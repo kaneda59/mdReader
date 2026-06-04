@@ -32,7 +32,7 @@ jobs:
 
     - name: Build with PyInstaller
       run: |
-        pyinstaller --noconfirm --onedir --windowed --name="mdviewer" app.py
+        pyinstaller --noconfirm --onedir --windowed --name="mdviewer" src/mdViewer.py
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
