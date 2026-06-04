@@ -1,5 +1,6 @@
 import sys
 import os
+import markdown
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QTextEdit
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 from PyQt6.QtPrintSupport import QPrinter, QPrintDialog
@@ -65,8 +66,28 @@ class MarkdownViewer(QMainWindow):
             self.view_code.show()
         else:
             self.view_code.hide()
-            # Simulation de rendu HTML simple (à remplacer par un parseur markdown en prod)
-            html = f"<html><body style='font-family:sans-serif;padding:20px;'>{self.markdown_content.replace('\n', '<br>')}</body></html>"
+            
+            # Convertit le Markdown en HTML structuré avec support des blocs de code
+            html_content = markdown.markdown(self.markdown_content, extensions=['fenced_code'])
+            
+            # Structure HTML propre avec un style CSS de base pour la lisibilité
+            html = f"""
+            <html>
+            <head>
+                <style>
+                    body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; padding: 30px; color: #24292e; line-height: 1.6; }}
+                    code {{ background-color: rgba(27,31,35,0.05); padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; }}
+                    pre {{ background-color: #f6f8fa; padding: 16px; border-radius: 3px; overflow: auto; }}
+                    pre code {{ background-color: transparent; padding: 0; }}
+                    h1, h2, h3 {{ border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }}
+                    ul, ol {{ padding-left: 2em; }}
+                </style>
+            </head>
+            <body>
+                {html_content}
+            </body>
+            </html>
+            """
             self.view_render.setHtml(html)
             self.view_render.show()
 
